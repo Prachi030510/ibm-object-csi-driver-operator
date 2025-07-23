@@ -659,6 +659,7 @@ func checkIfupdateCRFromConfigMapRequired(instance *objectdriverv1alpha1.IBMObje
 func (r *IBMObjectCSIReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
 		For(&objectdriverv1alpha1.IBMObjectCSI{}).
+		WithEventFilter(predicate.GenerationChangedPredicate{}).
 		Owns(&appsv1.Deployment{}).
 		Owns(&appsv1.DaemonSet{}).
 		Owns(&corev1.ServiceAccount{}).
